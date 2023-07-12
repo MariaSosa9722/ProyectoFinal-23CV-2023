@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations.Operations;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using ProyectoFinal_23CV.Context;
 using ProyectoFinal_23CV.Entities;
 using System;
@@ -50,7 +51,7 @@ namespace ProyectoFinal_23CV.Services
 
                    List<Usuario> usuarios = new List<Usuario>();
 
-                    usuarios = _context.Usuarios.ToList();
+                    usuarios = _context.Usuarios.Include(x=> x.Roles).ToList(); 
 
                     return usuarios;
                 }

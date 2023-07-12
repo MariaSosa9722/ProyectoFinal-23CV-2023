@@ -36,6 +36,7 @@ namespace ProyectoFinal_23CV.Vistas_Wpf
 
             if (txtPkUser.Text == "")
             {
+               
                 usuario.Nombre = txtNombre.Text;
                 usuario.UserName = txtUserName.Text;
                 usuario.Password = txtPassword.Text;
@@ -64,6 +65,7 @@ namespace ProyectoFinal_23CV.Vistas_Wpf
         public void GetUserTable()
         {
             UserTable.ItemsSource = services.GetUsers();
+            
         }
 
         public void GetRoles()
