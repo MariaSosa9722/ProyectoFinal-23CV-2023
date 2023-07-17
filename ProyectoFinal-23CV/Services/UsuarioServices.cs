@@ -1,13 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Migrations.Operations;
 using ProyectoFinal_23CV.Context;
 using ProyectoFinal_23CV.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ProyectoFinal_23CV.Services
 {
@@ -37,7 +33,7 @@ namespace ProyectoFinal_23CV.Services
             catch (Exception ex)
             {
 
-                throw new Exception("Succedio un erro "+ex.Message);
+                throw new Exception("Succedio un erro " + ex.Message);
             }
 
         }
@@ -49,9 +45,9 @@ namespace ProyectoFinal_23CV.Services
                 using (var _context = new ApplicationDbContext())
                 {
 
-                   List<Usuario> usuarios = new List<Usuario>();
+                    List<Usuario> usuarios = new List<Usuario>();
 
-                    usuarios = _context.Usuarios.Include(x=> x.Roles).ToList(); 
+                    usuarios = _context.Usuarios.Include(x => x.Roles).ToList();
 
                     return usuarios;
                 }
@@ -60,9 +56,9 @@ namespace ProyectoFinal_23CV.Services
             catch (Exception ex)
             {
 
-                throw new Exception("Succedio un error "+ex.Message);
+                throw new Exception("Succedio un error " + ex.Message);
             }
-     
+
         }
 
         public List<Rol> GetRoles()
@@ -80,11 +76,30 @@ namespace ProyectoFinal_23CV.Services
             catch (Exception ex)
             {
 
-                throw new Exception("Succedio un error"+ex.Message);
+                throw new Exception("Succedio un error" + ex.Message);
             }
         }
 
+        public Usuario Login(string UserName, string Password)
+        {
+            try
+            {
+                using (var _context = new ApplicationDbContext())
+                {
+                    var usuario = _context.Usuarios.Include(y => y.Roles).FirstOrDefault(x => x.UserName == UserName && x.Password == Password);
 
+
+                    return usuario;
+
+                }
+
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+        }
 
 
     }

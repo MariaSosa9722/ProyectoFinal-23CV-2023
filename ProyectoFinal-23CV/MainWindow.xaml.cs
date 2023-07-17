@@ -1,4 +1,5 @@
-﻿using ProyectoFinal_23CV.Vistas_Wpf;
+﻿using ProyectoFinal_23CV.Services;
+using ProyectoFinal_23CV.Vistas_Wpf;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,6 +28,7 @@ namespace ProyectoFinal_23CV
             InitializeComponent();
         }
 
+        UsuarioServices services = new UsuarioServices();
         private void Iniciar_Click(object sender, RoutedEventArgs e)
         {
 
@@ -34,9 +36,25 @@ namespace ProyectoFinal_23CV
 
         private void btnLogin_Click(object sender, RoutedEventArgs e)
         {
-            Sistema sistema = new Sistema();
-            Close();
-            sistema.Show();
+
+            string user = txtUserName.Text;
+            string password = txtPassword.Text;
+
+            var response = services.Login(user, password);
+
+            if (response.Roles.Nombre == "sa")
+            {
+                Sistema sistema = new Sistema();
+                Close();
+                sistema.Show();
+            }
+            else
+            {
+                SistemaCopia sistemaCopia = new SistemaCopia();
+                Close();
+                sistemaCopia.Show();
+            }
+      
         }
     }
 }

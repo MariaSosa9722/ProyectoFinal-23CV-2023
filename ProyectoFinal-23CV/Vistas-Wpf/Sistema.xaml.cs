@@ -54,7 +54,8 @@ namespace ProyectoFinal_23CV.Vistas_Wpf
             else
             {
 
-                //tarea realizar la funcion Editar y eliminar
+                //tarea realizar la funcion Editar y
+                //y programar la funcion eliminar
 
             }
 

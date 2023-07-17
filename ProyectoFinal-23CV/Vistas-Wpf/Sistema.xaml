@@ -16,7 +16,7 @@
         <TextBox x:Name="txtPassword" HorizontalAlignment="Left" Height="24" Margin="50,234,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102"/>
         <Button x:Name="BtnAdd" Content="Guardar" HorizontalAlignment="Left" Height="23" Margin="67,339,0,0" VerticalAlignment="Top" Width="68" Background="#FF96E486" Click="BtnAdd_Click"/>
 
-        <DataGrid x:Name="UserTable" AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="*" IsSynchronizedWithCurrentItem="True" Margin="183,127,44,59">
+        <DataGrid x:Name="UserTable"  AutoGenerateColumns="False" CanUserAddRows="False" IsReadOnly="True" ColumnWidth="*" IsSynchronizedWithCurrentItem="True" Margin="183,127,44,59">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Id" Binding="{Binding PkUsuario}" />
                 <DataGridTextColumn Header="Nombre" Binding="{Binding Nombre}" />
@@ -27,14 +27,14 @@
                 <DataGridTemplateColumn Header="Editar">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Edit" Click="EditItem" />
+                            <Button Content="Edit" Background="AliceBlue" Click="EditItem" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTemplateColumn Header="Delete">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <Button Content="Delete"/>
+                            <Button  Background="#FA4D4D" Content="Delete"/>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
@@ -42,7 +42,7 @@
 
         </DataGrid>
         <Label Content="Rol" HorizontalAlignment="Left" Height="26" Margin="50,263,0,0" VerticalAlignment="Top" Width="108"/>
-        <ComboBox x:Name="SelectRol" HorizontalAlignment="Left" Margin="50,289,0,0" VerticalAlignment="Top" Width="120"/>
+        <ComboBox x:Name="SelectRol" HorizontalAlignment="Left" Margin="50,289,0,0" VerticalAlignment="Top" Width="102"/>
         <TextBox x:Name="txtPkUser" HorizontalAlignment="Left" Height="18" Margin="50,85,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="102" IsEnabled="False"/>
     </Grid>
 </Window>

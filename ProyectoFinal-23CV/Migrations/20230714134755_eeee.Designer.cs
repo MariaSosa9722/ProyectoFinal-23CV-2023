@@ -9,8 +9,8 @@ using ProyectoFinal_23CV.Context;
 namespace ProyectoFinal_23CV.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230706204652_example")]
-    partial class example
+    [Migration("20230714134755_eeee")]
+    partial class eeee
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
