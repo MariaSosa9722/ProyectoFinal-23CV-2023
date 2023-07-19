@@ -38,22 +38,23 @@ namespace ProyectoFinal_23CV
         {
 
             string user = txtUserName.Text;
-            string password = txtPassword.Text;
+            string password = txtPassword.Password;
 
             var response = services.Login(user, password);
 
-            if (response.Roles.Nombre == "sa")
-            {
-                Sistema sistema = new Sistema();
-                Close();
-                sistema.Show();
-            }
-            else
-            {
+            //if (response.Roles.Nombre == "sa")
+            //{
+                //Sistema sistema = new Sistema();
+                //Close();
+                //sistema.Show();
+            //}
+            //else
+            //{
                 SistemaCopia sistemaCopia = new SistemaCopia();
                 Close();
                 sistemaCopia.Show();
-            }
+
+            //}
       
         }
     }

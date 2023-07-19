@@ -7,7 +7,14 @@
         mc:Ignorable="d"
         Title="SistemaCopia" Height="450" Width="800">
     <Grid>
-        <Label Content="Bienvenido ayudante" HorizontalAlignment="Left" Height="161" Margin="77,76,0,0" VerticalAlignment="Top" Width="567" FontSize="48" FontWeight="Bold"/>
+        <Label Content="Bienvenido ayudante" HorizontalAlignment="Left" Height="86" Margin="77,76,0,0" VerticalAlignment="Top" Width="567" FontSize="48" FontWeight="Bold"/>
+        <ComboBox x:Name="SelectGenero" 
+                  HorizontalAlignment="Left" 
+                  Margin="121,217,0,0" 
+                  VerticalAlignment="Top"
+                  Width="120"
+                  
+                  SelectedIndex="3"/>
 
     </Grid>
 </Window>

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProyectoFinal_23CV.Context;
+using ProyectoFinal_23CV.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +24,29 @@ namespace ProyectoFinal_23CV.Vistas_Wpf
         public SistemaCopia()
         {
             InitializeComponent();
+            SelectGeneros();
+        }
+
+
+
+        public List<Genero> GetGeneros()
+        {
+
+            using (var _context = new ApplicationDbContext())
+            {
+                var response = _context.Generos.ToList();
+                return response;
+
+            }
+        }
+
+        private void SelectGeneros()
+        {
+            SelectGenero.ItemsSource = GetGeneros();
+           
+            SelectGenero.DisplayMemberPath = "Nombre";
+           
+                
         }
     }
 }

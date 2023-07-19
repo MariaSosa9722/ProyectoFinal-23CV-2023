@@ -22,6 +22,8 @@ namespace ProyectoFinal_23CV.Context
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Rol> Roles { get; set; }
+        public DbSet<Genero> Generos { get; set; }
+        public DbSet<Pelicula> Peliculas { get; set;}
 
 
         //protected override void OnModelCreating(ModelBuilder builder)
