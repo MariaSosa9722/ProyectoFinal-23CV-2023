@@ -10,11 +10,32 @@
         <Label Content="Bienvenido ayudante" HorizontalAlignment="Left" Height="86" Margin="77,76,0,0" VerticalAlignment="Top" Width="567" FontSize="48" FontWeight="Bold"/>
         <ComboBox x:Name="SelectGenero" 
                   HorizontalAlignment="Left" 
-                  Margin="121,217,0,0" 
+                  Margin="239,232,0,0" 
                   VerticalAlignment="Top"
                   Width="120"
                   
                   SelectedIndex="3"/>
+        <ComboBox x:Name="Peliculas" HorizontalAlignment="Left" Margin="88,232,0,0" VerticalAlignment="Top" Width="120"/>
+        <Label Content="Genero" HorizontalAlignment="Left" Margin="239,191,0,0" VerticalAlignment="Top"/>
+        <Label Content="Pelicula" HorizontalAlignment="Left" Margin="88,191,0,0" VerticalAlignment="Top"/>
+        <DataGrid d:ItemsSource="{d:SampleData ItemCount=5}" Margin="400,162,81,25" AutoGenerateColumns="False" SelectionChanged="DataGrid_SelectionChanged_1">
+            <UIElement.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </UIElement.RenderTransform>
+            <DataGrid.Columns>
+                <DataGridTextColumn CanUserResize="False" MinWidth="60" Width="300"/>
+                <DataGridTextColumn MinWidth="60" CanUserResize="False"/>
+            </DataGrid.Columns>
+            <DataGrid.CellStyle>
+                <Style/>
+            </DataGrid.CellStyle>
+        </DataGrid>
+        <Button x:Name="agregar" Content="Agregar" HorizontalAlignment="Left" Margin="88,276,0,0" VerticalAlignment="Top" Width="85" Click="Button_Click"/>
 
     </Grid>
 </Window>

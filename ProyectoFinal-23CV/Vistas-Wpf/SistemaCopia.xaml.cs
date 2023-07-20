@@ -1,7 +1,9 @@
 ﻿using ProyectoFinal_23CV.Context;
 using ProyectoFinal_23CV.Entities;
+using ProyectoFinal_23CV.Services;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,32 +23,74 @@ namespace ProyectoFinal_23CV.Vistas_Wpf
     /// </summary>
     public partial class SistemaCopia : Window
     {
+
+        private readonly PeliculaService peliculaService = new PeliculaService();
         public SistemaCopia()
         {
             InitializeComponent();
-            SelectGeneros();
+            GetDatos();
         }
 
 
-
-        public List<Genero> GetGeneros()
+        public void GetDatos()
         {
-
+            List<Genero> generos = new List<Genero>();
             using (var _context = new ApplicationDbContext())
             {
-                var response = _context.Generos.ToList();
-                return response;
-
+                generos = _context.Generos.ToList();
             }
+
+            List<Pelicula> peliculas = this.peliculaService.GetAllPeliculas();
+            MontarCombox(generos, peliculas);
         }
 
-        private void SelectGeneros()
+        private void MontarCombox(List<Genero> generos, List<Pelicula> peliculas)
         {
-            SelectGenero.ItemsSource = GetGeneros();
-           
+            SelectGenero.ItemsSource = generos;//.Select( s => s.PkGenero);
             SelectGenero.DisplayMemberPath = "Nombre";
-           
-                
+            Peliculas.ItemsSource = peliculas;// ;.Select(s => s.PkGenero); ;
+            Peliculas.DisplayMemberPath = "Titulo";
+            SelectGenero.SelectedIndex = 0;
+            Peliculas.SelectedIndex = 0;
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void DataGrid_SelectionChanged_1(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            Genero generoSelect = SelectGenero.SelectedValue as Genero;
+            int genero = int.Parse(generoSelect.PkGenero.ToString());
+
+            Pelicula peliculaSelect = Peliculas.SelectedValue as Pelicula;
+
+            int peli = int.Parse(peliculaSelect.PkPelicula.ToString());
+            
+            Pelicula pelicula = this.peliculaService.GetPeliculaById(peli);
+
+            //Genero gen = this.peliculaService.GetGenero(genero);
+
+            Pelicula_Has_Genero nuevo = new Pelicula_Has_Genero()
+            {
+                GeneroId = genero,
+                PeliculaId = pelicula.PkPelicula
+            };
+
+            Debugger.Break();
+
+            pelicula.PeliculasGenero.Add(nuevo);
+
+            this.peliculaService.UpdatePelicula(pelicula);
+
+            MessageBox.Show("Genero agregado correctamente");
+
         }
     }
 }

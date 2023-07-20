@@ -6,18 +6,20 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using ProyectoFinal_23CV.Context;
 
+#nullable disable
+
 namespace ProyectoFinal_23CV.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230718202333_example")]
-    partial class example
+    [Migration("20230719233521_Primera")]
+    partial class Primera
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("Relational:MaxIdentifierLength", 64)
-                .HasAnnotation("ProductVersion", "5.0.0");
+                .HasAnnotation("ProductVersion", "6.0.1")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("GeneroPelicula", b =>
                 {
@@ -42,11 +44,23 @@ namespace ProyectoFinal_23CV.Migrations
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.HasKey("PkGenero");
 
                     b.ToTable("Generos");
+
+                    b.HasData(
+                        new
+                        {
+                            PkGenero = 1,
+                            Nombre = "Acción"
+                        },
+                        new
+                        {
+                            PkGenero = 2,
+                            Nombre = "Comedia"
+                        });
                 });
 
             modelBuilder.Entity("ProyectoFinal_23CV.Entities.Pelicula", b =>
@@ -57,11 +71,38 @@ namespace ProyectoFinal_23CV.Migrations
 
                     b.Property<string>("Titulo")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.HasKey("PkPelicula");
 
                     b.ToTable("Peliculas");
+
+                    b.HasData(
+                        new
+                        {
+                            PkPelicula = 1,
+                            Titulo = "Pelicula 1"
+                        },
+                        new
+                        {
+                            PkPelicula = 2,
+                            Titulo = "Pelicula 2"
+                        });
+                });
+
+            modelBuilder.Entity("ProyectoFinal_23CV.Entities.Pelicula_Has_Genero", b =>
+                {
+                    b.Property<int>("PeliculaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("GeneroId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PeliculaId", "GeneroId");
+
+                    b.HasIndex("GeneroId");
+
+                    b.ToTable("Pelicula_Has_Genero");
                 });
 
             modelBuilder.Entity("ProyectoFinal_23CV.Entities.Rol", b =>
@@ -72,11 +113,23 @@ namespace ProyectoFinal_23CV.Migrations
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.HasKey("PkRol");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            PkRol = 1,
+                            Nombre = "Administrador"
+                        },
+                        new
+                        {
+                            PkRol = 2,
+                            Nombre = "Usuario Normal"
+                        });
                 });
 
             modelBuilder.Entity("ProyectoFinal_23CV.Entities.Usuario", b =>
@@ -90,21 +143,39 @@ namespace ProyectoFinal_23CV.Migrations
 
                     b.Property<string>("Nombre")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("Password")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("text");
+                        .HasColumnType("longtext");
 
                     b.HasKey("PkUsuario");
 
                     b.HasIndex("FkRol");
 
                     b.ToTable("Usuarios");
+
+                    b.HasData(
+                        new
+                        {
+                            PkUsuario = 1,
+                            FkRol = 1,
+                            Nombre = "Usuario 1",
+                            Password = "password1",
+                            UserName = "user1"
+                        },
+                        new
+                        {
+                            PkUsuario = 2,
+                            FkRol = 2,
+                            Nombre = "Usuario 2",
+                            Password = "password2",
+                            UserName = "user2"
+                        });
                 });
 
             modelBuilder.Entity("GeneroPelicula", b =>
@@ -122,6 +193,25 @@ namespace ProyectoFinal_23CV.Migrations
                         .IsRequired();
                 });
 
+            modelBuilder.Entity("ProyectoFinal_23CV.Entities.Pelicula_Has_Genero", b =>
+                {
+                    b.HasOne("ProyectoFinal_23CV.Entities.Genero", "Genero")
+                        .WithMany("PeliculasGenero")
+                        .HasForeignKey("GeneroId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("ProyectoFinal_23CV.Entities.Pelicula", "Pelicula")
+                        .WithMany("PeliculasGenero")
+                        .HasForeignKey("PeliculaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Genero");
+
+                    b.Navigation("Pelicula");
+                });
+
             modelBuilder.Entity("ProyectoFinal_23CV.Entities.Usuario", b =>
                 {
                     b.HasOne("ProyectoFinal_23CV.Entities.Rol", "Roles")
@@ -129,6 +219,16 @@ namespace ProyectoFinal_23CV.Migrations
                         .HasForeignKey("FkRol");
 
                     b.Navigation("Roles");
+                });
+
+            modelBuilder.Entity("ProyectoFinal_23CV.Entities.Genero", b =>
+                {
+                    b.Navigation("PeliculasGenero");
+                });
+
+            modelBuilder.Entity("ProyectoFinal_23CV.Entities.Pelicula", b =>
+                {
+                    b.Navigation("PeliculasGenero");
                 });
 #pragma warning restore 612, 618
         }
